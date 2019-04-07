@@ -23,16 +23,28 @@ int main()
     mpz_out_str(stdout, 10, Sb);
     cout<<endl;
 
-    K(p,n,h,Sb,Y1,Y2,B1,B2,k,l);
-    cout<<"k:"<<endl;
+//    K(p,n,h,Sb,Y1,Y2,B1,B2,k,l);
+//    cout<<"k:"<<endl;
+//    mpz_out_str(stdout, 10, k);
+//    cout<<endl;
+//    cout<<"l:"<<endl;
+//    mpz_out_str(stdout, 10, l);
+//    cout<<endl;
+
+    add(p,Y1,Y2,Y1,Y2,k,l);
+    cout<<"pierwsze k:"<<endl;
     mpz_out_str(stdout, 10, k);
     cout<<endl;
-    cout<<"l:"<<endl;
+    cout<<"pierwsze l:"<<endl;
+    mpz_out_str(stdout, 10, l);
+    cout<<endl;
+    add(p,k,l,k,l,k,l);
+    cout<<"kk:"<<endl;
+    mpz_out_str(stdout, 10, k);
+    cout<<endl;
+    cout<<"ll:"<<endl;
     mpz_out_str(stdout, 10, l);
     cout<<endl;
     cin.get();
-
-//709004464247316731576902544972255128019
-
     return 0;
 }

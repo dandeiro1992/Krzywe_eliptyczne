@@ -13,11 +13,11 @@ void curve_init(mpz_t &p,mpz_t &a, mpz_t &b,mpz_t &gx, mpz_t &gy, mpz_t &n, mpz_
   mpz_set_str(h,"1",16);
 }
 
-void add(mpz_t p, mpz_t x_1, mpz_t y_1, mpz_t x_2, mpz_t y_2, mpz_t &a, mpz_t &b)
+void add(mpz_t p, mpz_t x_11, mpz_t y_11, mpz_t x_22, mpz_t y_22, mpz_t &a, mpz_t &b)
 {
-
+    mpz_t x_1,x_2,y_1,y_2;
     mpz_t c,d,e,f,g,h,i,k,l,m,tmp_1,tmp_2;
-    mpz_inits(c,d,e,f,g,h,i,k,l,m,tmp_1,tmp_2,NULL);
+    mpz_inits(x_1,x_2,y_1,y_2,c,d,e,f,g,h,i,k,l,m,tmp_1,tmp_2,NULL);
     mpz_set_str(g,"3",10);
     mpz_set_str(h,"2",10);
     mpz_t zero;
@@ -27,6 +27,10 @@ void add(mpz_t p, mpz_t x_1, mpz_t y_1, mpz_t x_2, mpz_t y_2, mpz_t &a, mpz_t &b
     mpz_set_str(jeden,"1",10);
     mpz_set(tmp_1,x_1);
     mpz_set(tmp_2,y_1);
+    mpz_set(x_1,x_11);
+    mpz_set(y_1,y_11);
+    mpz_set(x_2,x_22);
+    mpz_set(y_2,y_22);
     if(mpz_cmp(x_1,zero)==0)
     {
         if(mpz_cmp(y_1,jeden)==0)
@@ -76,6 +80,14 @@ void add(mpz_t p, mpz_t x_1, mpz_t y_1, mpz_t x_2, mpz_t y_2, mpz_t &a, mpz_t &b
             {
                 if(mpz_cmp(y_1,y_2)==0)
                 {
+//                    mpz_out_str(stdout, 10, x_1);
+//                    std::cout<<"\n";
+//                    mpz_out_str(stdout, 10, y_1);
+//                    std::cout<<"\n";
+//                    mpz_out_str(stdout, 10, x_2);
+//                    std::cout<<"\n";
+//                    mpz_out_str(stdout, 10, y_2);
+//                    std::cout<<"\n";
                     mpz_mul(f,x_1,x_1);
                     mpz_mul(f,f,g);
                     mpz_mul(i,h,y_1);
@@ -86,8 +98,11 @@ void add(mpz_t p, mpz_t x_1, mpz_t y_1, mpz_t x_2, mpz_t y_2, mpz_t &a, mpz_t &b
                     mpz_sub(a,i,f);
                     mpz_mod(a,a,p);
 
-                    mpz_sub(c,c,y_1);
+                    mpz_sub(c,zero,y_1);
+//                    mpz_out_str(stdout, 10, x_1);
+//                    std::cout<<"\n";
                     mpz_mul(d,x_1,x_1);
+                    mpz_mod(d,d,p);
                     mpz_mul(d,d,g);
                     mpz_mul(e,h,y_1);
                     mpz_invert(e,e,p);
@@ -96,7 +111,6 @@ void add(mpz_t p, mpz_t x_1, mpz_t y_1, mpz_t x_2, mpz_t y_2, mpz_t &a, mpz_t &b
                     mpz_mul(e,e,f);
                     mpz_add(b,c,e);
                     mpz_mod(b,b,p);
-
                 }
                 else
                 {
