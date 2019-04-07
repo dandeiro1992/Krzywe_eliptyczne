@@ -1,7 +1,7 @@
 #include<gmp.h>
 #include<iostream>
-#include <stdio.h>
-#include <string.h>
+#define BUFFER_LENGTH 512
+
 void curve_init(mpz_t &p,mpz_t &a, mpz_t &b,mpz_t &gx, mpz_t &gy, mpz_t &n, mpz_t &h)
 {
   mpz_set_str(p,"FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEFFFFFC2F",16);
@@ -261,18 +261,16 @@ void R_hat(mpz_t n, mpz_t x, mpz_t &R)
     }
     char * tmp = mpz_get_str(NULL,2,x);
     std::string Str = tmp;
-    std::cout<<"\n"<<Str<<"\n";
+    //std::cout<<"\n"<<Str<<"\n";
     Str="1"+Str.substr(Str.length()-sz,Str.length());
-    std::cout<<"\n"<<Str<<"\n";
+    //std::cout<<"\n"<<Str<<"\n";
     //tmp[sz]='\0';
-    std::cout<<"\n"<<tmp+129<<"\n";
+    //std::cout<<"\n"<<tmp+129<<"\n";
     //mpz_set_str(R,tmp,2);
     char zmienna[Str.length()+1];
     Str.copy(zmienna,Str.length()+1);
     zmienna[Str.length()]='\0';
     mpz_set_str(R,zmienna,2);
-
-
 }
 void S(mpz_t n,mpz_t secret_2,mpz_t x, mpz_t secret,mpz_t &S)
 {
@@ -309,19 +307,6 @@ void S(mpz_t n,mpz_t secret_2,mpz_t x, mpz_t secret,mpz_t &S)
 }
 void K(mpz_t p,mpz_t n, mpz_t h, mpz_t Sa, mpz_t Y_1, mpz_t Y_2, mpz_t B_1, mpz_t B_2,mpz_t &a, mpz_t &b)
 {
-    std::cout<<"Y1=\n";
-    mpz_out_str(stdout, 10,Y_1);
-    std::cout<<"\n";
-    std::cout<<"Y2=\n";
-    mpz_out_str(stdout, 10,Y_2);
-    std::cout<<"\n";
-    std::cout<<"B1=\n";
-    mpz_out_str(stdout, 10,B_1);
-    std::cout<<"\n";
-    std::cout<<"B2=\n";
-    mpz_out_str(stdout, 10,B_2);
-    std::cout<<"\n";
-
     mpz_t c,Y;
     size_t sz = mpz_sizeinbase (n, 2);
     sz=sz+1;
@@ -341,41 +326,20 @@ void K(mpz_t p,mpz_t n, mpz_t h, mpz_t Sa, mpz_t Y_1, mpz_t Y_2, mpz_t B_1, mpz_
     Str.copy(zmienna,Str.length()+1);
     zmienna[Str.length()]='\0';
     mpz_set_str(Y,zmienna,2);
-
-    std::cout<<"Y=\n";
-    mpz_out_str(stdout, 10, Y);
-    std::cout<<"\n";
-
     //mpz_set_str(Y,tmp,2);
     quick_add_2(p,B_1,B_2,Y,a,b);
-
-    std::cout<<"a=\n";
-    mpz_out_str(stdout, 10,a);
-    std::cout<<"\n";
-    std::cout<<"b=\n";
-    mpz_out_str(stdout, 10, b);
-    std::cout<<"\n";
-
     add(p,a,b,Y_1,Y_2,a,b);
-
-    std::cout<<"a2=\n";
-    mpz_out_str(stdout, 10,a);
-    std::cout<<"\n";
-    std::cout<<"b2=\n";
-    mpz_out_str(stdout, 10, b);
-    std::cout<<"\n";
-
     quick_add_2(p,a,b,Sa,a,b);
-    std::cout<<"a3=\n";
-    mpz_out_str(stdout, 10,a);
-    std::cout<<"\n";
-    std::cout<<"b3=\n";
-    mpz_out_str(stdout, 10, b);
-    std::cout<<"\n";
     //std::cout<<"a=\n";
     //mpz_out_str(stdout, 10, a);
     //std::cout<<"\n";
     //std::cout<<"b=\n";
     //mpz_out_str(stdout, 10, b);
     //std::cout<<"\n";
+}
+
+void clean_buffer(char *buffer)
+{
+    for(int i=0;i<BUFFER_LENGTH;i++)
+        buffer[i]=NULL;
 }

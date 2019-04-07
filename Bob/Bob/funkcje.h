@@ -8,4 +8,5 @@ void generate_key(mpz_t p, mpz_t x_1, mpz_t y_1, mpz_t &x_2, mpz_t &y_2, mpz_t &
 void R_hat(mpz_t n, mpz_t x, mpz_t &R);
 void S(mpz_t n, mpz_t secret_2,mpz_t x, mpz_t secret,mpz_t &S);
 void K(mpz_t p, mpz_t n,mpz_t h, mpz_t Sa, mpz_t Y_1, mpz_t Y_2, mpz_t B_1, mpz_t B_2,mpz_t &a, mpz_t &b);
+void clean_buffer(char *buffer);
 #endif // FUNKCJE_H
